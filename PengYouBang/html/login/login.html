@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<style>
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				background: url(../../images/loginbg.png) no-repeat fixed center center;
+				background-size: 100%;
+			}
+			
+			.bgview{
+				position: fixed;
+				left: 20px;
+				right: 20px;
+				top: 50px;
+				bottom: 50px;
+				background: rgba(255,255,255,0.3);
+			}
+			.line{
+				position: absolute;
+				top: 35px;
+				left: 15px;
+				right: 15px;
+				height: 1px;
+				background: red;
+			}
+			
+			.phone{
+				margin: 80px 20px 10px;
+			}
+			.code{
+				margin: 0px 20px;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="mui-content">
+			
+			<div class="bgview">
+				
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input class="account-input" type="text" placeholder="请输入账号">
+					<span class="line"></span>
+				</div>
+				
+				
+
+				<!-- <div class="phone">
+					<input class="mui-numbox-input" type="number" placeholder="用户名"/>
+				</div>
+				<div class="code">
+					<input class="mui-input-clear" type="number" placeholder="密码"/>
+				</div> -->
+				
+				<!-- <button id="login" type="button" class="mui-btn mui-btn-block" >登录</button>			 -->
+				<!-- <button id="registerbtn" type="button" class="mui-btn mui-btn-block" >注册</button> -->
+				
+			</div>
+			
+		</div>
+		
+		
+		<script src="../../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				//预加载注册页面
+				preloadPages:[
+					{
+						id:'register',
+						url:'register.html'
+					},
+				]
+			})			
+			
+			//登录
+			var loginBtn = document.body.querySelector('#login');
+			loginBtn.addEventListener('tap', function () {				
+				getVerificationCode();
+			})
+			
+			//注册
+			var registerBtn = document.body.querySelector('#registerbtn');
+			registerBtn.addEventListener('tap', function () {
+				pushNextWindow('register.html');
+			})
+			
+			
+			//调用获取验证码接口
+			function getVerificationCode(){				
+				var phone = '15670551800';
+				var url = 'http://paradise.easy.echosite.cn/app/getVerifyCode?mobileNo=' + phone;
+				
+				console.log(url);
+				
+				mui.ajax(url,{
+					data:{
+						
+					},
+					dataType:'html',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒
+					success:function(data){
+						console.log(data);
+					},
+					error:function(xhr,type,errorThrown){
+						console.log(xhr);
+						console.log(type);
+						console.log(errorThrown);
+						mui.toast('请求失败');
+					}
+				});
+				
+			}
+			
+			
+			function pushNextWindow(urlString) {
+				mui.openWindow({
+					url:urlString,
+					styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						titleNView: {                       // 窗口的标题栏控件
+							titleText:"注册",                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+							titleColor:"#FFFFFF",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+							titleSize:"17px",                 // 字体大小,默认17px
+							backgroundColor:"#353439",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+							progress:{                        // 标题栏控件的进度条样式
+								color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+								height:"2px"                    // 进度条高度,默认值为"2px"         
+							},
+							splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+								color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+								height:"1px"                    // 分割线高度,默认值为"2px"
+							},
+							autoBackButton:true
+						},
+					},
+				});
+			}
+			
+		</script>
+	</body>
+
+</html>

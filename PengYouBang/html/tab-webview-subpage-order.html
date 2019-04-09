@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}	
+			.mui-content{
+				padding-top: 44px;
+			}
+			.mui-table-view{
+				line-height: 50px;
+			}
+			.mui-table-view-cell:after{
+				position: absolute;
+				left: 0px;
+				background-color: #DDDDDD;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-navigationBar-style">
+			<h1 class="mui-title mui-navigationTitle-style">订单</h1>
+		</header>
+	
+		<div class="mui-content">
+			
+			<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">打款订单</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">收款订单</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">申诉订单</a>
+					</li>
+			</ul>
+			
+		</div>
+	
+	
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						color:'#007AFF',
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});			
+					  
+			//列表点击事件
+			var table = document.body.querySelector('.mui-table-view');
+			var cellArr = document.body.querySelectorAll('.mui-table-view-cell');
+			
+			var listClicked = function (i) {
+				cellArr[i].addEventListener('tap',function () {
+					pushNextWindow(i);
+				})
+			}
+				
+			for (var i = 0; i < table.childElementCount; i++) {
+				listClicked(i);
+			}
+			
+			var pushNextWindow = function(i) {				
+				switch (i){
+					case 0:
+					{//打款订单						
+						openTargetWindow('order/order-dakuan-list.html', 'order/order-dakuan-list.html', "打款订单");
+						break;
+					}
+					case 1:
+					{//收款订单
+						openTargetWindow('order/order-shoukuan-list.html', 'order/order-shoukuan-list.html', "收款订单");
+						break;
+					}
+					case 2:
+					{//申诉订单
+						openTargetWindow('order/order-shensu-list.html', 'order/order-shensu-list.html', "申诉订单");					
+						break;
+					}						
+					default:
+						break;
+				}
+			}
+			
+			var openTargetWindow = function (url, id, title) {
+				mui.openWindow({
+					url:url,
+					id:id,
+					show:{
+						autoShow:true
+					},
+					styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						titleNView: {                       // 窗口的标题栏控件
+							titleText:title,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+							titleColor:"#FFFFFF",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+							titleSize:"17px",                 // 字体大小,默认17px
+							backgroundColor:"#353439",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+							progress:{                        // 标题栏控件的进度条样式
+								color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+								height:"2px"                    // 进度条高度,默认值为"2px"         
+							},
+							splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+								color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+								height:"1px"                    // 分割线高度,默认值为"2px"
+							},
+							autoBackButton:true
+						},
+					},
+				});
+			}
+			
+			
+			
+			/**下拉刷新具体业务实现*/
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for(var i = cells.length, len = i + 3; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+						//下拉刷新，新纪录插到最前面；
+						table.insertBefore(li, table.firstChild);
+					}
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+					mui.toast('下拉刷新成功');
+				}, 1000);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for(var i = cells.length, len = i + 20; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+						table.appendChild(li);
+					}
+				}, 1000);
+			}
+		</script>
+	</body>
+
+</html>

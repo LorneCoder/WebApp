@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet"/>
+		<style>
+			body,ul,li,p{
+				padding:0px;
+				margin:0px;
+			}
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-slider{
+				height: 300px;
+			}
+			
+			.secondTitle{
+				padding: 15px 0px 5px;
+				text-align: center;
+			}
+			.secondTitle span{
+				/* 行内块元素  可设宽高 还可并排 */
+				display: inline-block;
+				width: 200px;
+				height: 40px;
+				line-height: 40px;
+				font-size: 14px;
+				color: #fff;
+				background: #007AFF;
+				text-align: center;
+				border-radius: 20px;
+			}
+			.pd-list{
+				padding: 0px 12px 59px;
+			}
+			.pd-list .pd-list-item{
+				background: #FFFFFF;
+				padding: 5px 8px;
+				display: flex;
+				border-radius: 5px;
+				margin-top: 10px;
+			}
+			.pd-list-item .left-img{
+				flex-basis: 62px;
+				flex-shrink: 0;
+				flex-grow: 0;
+				width: 62px;
+				height: 62px;
+				border-radius: 5px;
+				background-image:url('');
+				background-size: 100% 100%;
+				background-position: center center;
+				background-repeat:no-repeat ;
+				background-color: #0062CC;
+				position: relative;
+				text-align: center;
+			}
+			.pd-list-item .left-img p{
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				width: 100%;
+				height: 20px;
+				line-height: 20px;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			.pd-list-item .price,.pd-list-item .rate{
+				flex: 1;
+				margin: 10px 10px 10px 0px;
+				color: #999999;
+				text-align: center;
+				
+			}
+			.pd-list-item .price{
+				border-right: 1px dotted #999999;
+			}
+			.pd-list-item .price .num,.pd-list-item .rate .num{
+				color: #333333;
+				font-size: 14px;
+			}
+			.pd-list-item .price p, .pd-list-item .rate p{
+				font-size: 12px;
+			}
+			.pd-list-item .btn-box{
+				flex-basis: 80px;
+				flex-shrink: 0;
+				flex-grow: 0;
+				position: relative;
+			}
+			.pd-list-item .btn-box .btn{
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin:auto auto;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				background: #0062CC;
+				border-radius:5px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+						
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-navigationBar-style">
+			<h1 class="mui-title mui-navigationTitle-style">首页</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div id="slider" class="mui-slider" >
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="images/60x60.gif">
+				</a>
+				</div>
+				<!-- 第一张 -->
+				<div id="slideItem-first" class="mui-slider-item">
+				<a href="#">
+					<img src="images/logo.png">
+				</a>
+				</div>
+				<!-- 第2张 -->
+				<div id="sliderItem-second" class="mui-slider-item">
+				<a href="#">
+					<img src="images/60x60.gif">
+				</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="images/logo.png">
+				</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+			</div>
+			</div>
+			
+			<div class="secondTitle"><span>排单社区</span></div>
+			
+			<ul class='pd-list'>
+					<li class='pd-list-item'>
+						<div class='left-img'><p>1档</p></div>
+						<div class='price'><p class='num'>￥1000.00</p><p>金额</p></div>
+						<div class='rate'><p class='num'>20%</p><p>收益率</p></div>
+						<div class='btn-box'><p class='btn'>立即排单</p></div>
+					</li>
+				</ul>
+		</div>
+		
+		<script src="js/util.js"></script>
+		<script type="text/javascript">		
+			 (function() {									
+				mui.init({
+					swipeBack: true ,//启用右滑关闭功能					
+				});				
+				
+				mui.plusReady(function() {
+					//设置状态栏的颜色
+					plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+					plus.navigator.setStatusBarBackground('#353439');				
+					
+					// 创建子webview窗口 并初始化
+					var aniShow = {};
+					util.initSubpage(aniShow);
+					
+					var nview = plus.nativeObj.View.getViewById('tabBar'),
+						activePage = plus.webview.currentWebview(),
+						targetPage,
+						subpages = util.options.subpages,
+						pageW = window.innerWidth,
+						currIndex = 0;						
+						
+					/**
+					 * 根据判断view控件点击位置判断切换的tab
+					 */
+					nview.addEventListener('click', function(e) {
+						var clientX = e.clientX;
+						if(clientX > 0 && clientX <= parseInt(pageW * 0.25)) {
+							currIndex = 0;
+						} else if(clientX > parseInt(pageW * 0.25) && clientX <= parseInt(pageW * 0.50)) {
+							currIndex = 1;
+						} else if(clientX > parseInt(pageW * 0.50) && clientX <= parseInt(pageW * 0.8)) {
+							currIndex = 2;
+						} else {
+							currIndex = 3;
+						}
+						// 匹配对应tab窗口	
+						if(currIndex > 0) {
+							targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+						} else {
+							targetPage = plus.webview.currentWebview();
+						}
+					
+						if(targetPage == activePage) {
+							return;
+						}
+						
+						//底部选项卡切换
+						util.toggleNview(currIndex);
+						// 子页面切换
+						util.changeSubpage(targetPage, activePage, aniShow);
+						//更新当前活跃的页面
+						activePage = targetPage;					
+					});
+				
+				
+					//轮播图相关
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+					});				
+					
+					//轮播图的点击事件
+					//根据id查找元素的格式:双引号+#   根据类名:单引号+.
+					mui('.mui-slider').on('tap',"#slideItem-first",function(){
+						plus.webview.open('html/new-webview.html', 'new', {}, 'slide-in-right', 200);
+						plus.webview.open
+					}) 
+						
+					//立即排单
+					mui('.pd-list').on('tap','.btn',function(){
+						mui.confirm('是否确认排单?','提示',['取消','确认'],function (e) {
+							if (e.index == 1) {
+								mui.toast('处理排单逻辑');
+								paidan()
+							}
+						},'div')												
+					}) 
+						
+					var number = 2;	
+					function paidan() {
+						//模拟请求
+						mui.later(function(){
+							var table = document.body.querySelector('.pd-list');
+							var cell = document.createElement('li');
+							cell.className = 'pd-list-item';
+							cell.innerHTML = '<div class="left-img"><p>' + number + '档</p></div><div class="price"><p class="num">￥' + number + '000.00</p><p>金额</p></div><div class="rate"><p class="num">20%</p><p>收益率</p></div><div class="btn-box"><p class="btn">立即排单</p></div>'
+							table.appendChild(cell);							  
+							
+							number++;
+						},500);
+					}
+									
+				});
+			
+			})();
+		
+		
+		
+		</script>
+	</body>
+
+</html>

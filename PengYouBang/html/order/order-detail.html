@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/paytypeicon.css" rel="stylesheet" />
+		<link href="../../css/imageview.css" rel="stylesheet" />
+		<link href="../../css/mui.imageviewer.css" rel="stylesheet" />
+		<style>
+			.userInfo{
+				margin: 10px 10px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				background: #FFFFFF;
+				border-radius: 5px;
+			}
+			.info-item{
+				padding: 5px 15px;
+				font-size: 14px;
+			}
+			.orderID, .money, .status, .time, .name, .phone{
+				position: absolute;
+				left: 130px;
+				font-size: 13px;
+				color: #969696;
+			}
+			.money{
+				color: #FF3030;
+			}
+			.orderID{
+				color: #333333;
+			}
+			
+			.pay-type{
+				display: flex;
+			} 
+			.mui-icon{
+				flex: 1;
+				height: 50px;
+				background: #D3D3D3;
+				text-align: center;
+				line-height: 50px;
+				font-size: 22px;
+				border-radius: 5px;
+				border-style: none;
+				border-color: #DD524D;
+				border-width: 1px;
+			}
+			.icon-weixin{
+				margin-left: 10px;
+				margin-right: 10px;
+				color: #2AC845;
+				background: #FFFFFF;
+				border-style: solid;
+			}
+			.icon-zhifubao{
+				color: #007AFF;
+			}
+			.icon-yinhangqia{
+				margin-left: 10px;
+				margin-right: 10px;
+				color: darkkhaki;
+			}
+			.mui-icon span{
+				font-size: 15px;
+				margin-left: 3px;
+				color: #333333;
+			}
+			.shoukuan{
+				position: relative;
+				margin: 10px 10px;
+				height: 250px;
+				background: #FFFFFF;
+				padding: 10px 10px;
+				border-radius: 5px;
+			}
+			.shoukuan img{
+				width: 100%;
+				height: 100%;
+			}
+			.bank-info{
+				display: none;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+			.bank-info div{
+				margin-top: 10px;
+			}
+			.bankname, .banknum, .accountname{
+				position: absolute;
+				left: 90px;
+				font-size: 13px;
+				color: #969696;
+			}
+			.fukuan{
+				position: relative;
+				margin: 10px 10px;
+				height: 250px;
+				background: #FFFFFF;
+				padding: 10px 10px;
+				border-radius: 5px;
+			}
+			.fukuan img{
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+			.fukuan-div{
+				width: 100%;
+				height: 100%;
+				line-height: 250px;
+				text-align: center;
+				font-size: 18px;
+				border-style: dotted;
+				border-color: #AAAAAA;
+				border-width: 1px;
+				border-radius: 5px;
+				color:#969696;
+			}
+			
+			.confirm{
+				position: relative;
+				margin: 20px 10px;
+				height: 50px;
+				border-radius: 5px;
+				background: #0062CC;
+			}
+			.mui-btn-block{
+				position: relative;
+				height: 50px;
+				background: #0062CC;
+				border-radius: 5px;				
+				color: #FFFFFF;
+				font-size: 16px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="userInfo">
+						<div class="info-item"><span>订单编号：</span><span class="orderID">1</span></div>
+						<div class="info-item"><span>金额：</span><span class="money">¥200</span></div>
+						<div class="info-item"><span>状态：</span><span class="status">匹配成功</span></div>
+						<div class="info-item"><span>最后付款时间：</span><span class="time">2019-03-30 18:20:00</span></div>
+						<div class="info-item"><span>收款人姓名：</span><span class="name">李四</span></div>
+						<div class="info-item"><span>收款人电话：</span><span class="phone">18618610010</span></div>
+					</div>
+					<div class="pay-type">
+						<span class="mui-icon iconfont icon-weixin">
+							<span class="title">微信</span>
+						</span>
+						<span class="mui-icon iconfont icon-zhifubao">
+							<span class="title">支付宝</span>
+						</span>
+						<span class="mui-icon iconfont icon-yinhangqia">
+							<span class="title">银行卡</span>
+						</span>
+					</div>
+					<div class="shoukuan">
+						<img id="shoukuan-img" src="../../images/ma.png" data-preview-src="" data-preview-group="1" />
+						<div class="bank-info">
+							<div><span>银行名称：</span><span class="bankname">中国银行</span></div>
+							<div><span>银行卡号：</span><span class="banknum">10101310920020</span></div>
+							<div><span>账户名称：</span><span class="accountname">李四</span></div>
+						</div>
+					</div>
+					<div class="fukuan">
+						<div class="fukuan-div">点击上传付款凭证</div>
+						<img class="fukuan-img" />
+					</div>
+										
+					<div class="confirm">
+						<button type="button" class="mui-btn mui-btn-block">确认付款</button>
+					</div>
+										
+				</div>
+			</div>
+		</div>
+		
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.imageViewer.js" ></script>
+		<script src="../../js/mui.previewimage.js" ></script>
+		<script src="../../js/mui.zoom.js" ></script>
+		<script type="text/javascript">
+			mui.init({
+				gestureConfig:{
+					longtap: true, //默认为false
+					hold:true,//默认为false，不监听	
+				}
+			});
+			
+			mui.previewImage();
+						
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: false, //是否显示滚动条
+				deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			})
+			
+			mui.plusReady(function () {		
+				window.addEventListener('getOrderID',function(event){
+					//获得事件参数
+					var id = event.detail.id;
+					//根据id向服务器请求新闻详情
+					console.log('传过来的ID：' + id);				
+				});
+			})
+			
+			//收款类型切换事件
+			mui('.pay-type').on('tap','.mui-icon',function(){
+				var selectType = this.querySelector('.title').innerText;
+								
+				resetPayTypeStyle();
+				if (selectType === '微信') {
+					selelctPayType('icon-weixin');
+				} else if (selectType === '支付宝') {
+					selelctPayType('icon-zhifubao');
+				} else {
+					selelctPayType('icon-yinhangqia');
+				}
+				
+				setShouKuanImage(selectType);
+			}) 
+		
+						
+			var resetPayTypeStyle = function () {
+				var selectItems = document.body.querySelectorAll('.mui-icon');
+				for (let i = 0; i < selectItems.length; i++) {
+					selectItems[i].style.background = '#D3D3D3';
+					selectItems[i].style.borderStyle = 'none';					
+				}
+			}
+			
+			var selelctPayType = (function (className) {
+				var selectItem = document.body.querySelector('.' + className);
+				selectItem.style.background = '#ffffff';
+				selectItem.style.borderStyle = 'solid';
+			})
+			
+			var cancelSelectPayType = (function () {
+				var selectItem = document.body.querySelectorAll('mui-icon');
+				selectItem.style.background = '#D3D3D3';
+				selectItem.style.borderStyle = 'none';
+			})
+			
+			//动态显示收款码图片
+			var shoukuanElem = document.body.querySelector('#shoukuan-img');			
+			var setShouKuanImage = (function (payType) {	
+				var shoukuanImg = document.body.querySelector('#shoukuan-img');
+				var bankinfo = document.body.querySelector('.bank-info');
+								
+				if (payType === '微信') {
+					shoukuanImg.style.display = 'block';
+					bankinfo.style.display = 'none';
+					shoukuanElem.src = '../../images/ma.png';
+					
+				} else if (payType === '支付宝') {
+					shoukuanImg.style.display = 'block';
+					bankinfo.style.display = 'none';
+					shoukuanElem.src = '../../images/shouqianma.png';
+					
+				} else {
+					shoukuanImg.style.display = 'none';
+					bankinfo.style.display = 'block';
+				}
+			})
+									
+			//长按保存图片(有bug，重复执行)
+			shoukuanElem.addEventListener('longtap', function () {
+				//开启弹框
+				if (mui.os.plus) {
+					var buttonTit = [ 
+					{
+						title:"保存图片"
+					}];
+					
+					plus.nativeUI.actionSheet({
+						title: "提示",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								saveImage();
+								break;
+							default:
+								break;
+						}
+					})
+				}						
+			})			
+			
+			//保存图片到相册
+			function saveImage(){
+				var imgurl = shoukuanElem.src;
+				var imgDtask = plus.downloader.createDownload(imgurl,{method:'GET'}, function (d,status) {														
+					if(status == 200){
+						plus.gallery.save(d.filename, function () {//保存到相册
+							plus.io.resolveLocalFileSystemURL(d.filename, function (enpty) {
+								mui.toast('保存成功')
+							});
+						})
+					} else {
+						mui.toast('保存失败')
+					}
+				});		
+				imgDtask.start();
+			}
+						
+			//上传付款凭证
+			mui('.fukuan').on('tap','.fukuan-div',function(){
+				
+				 if (mui.os.plus) {
+					var buttonTit = [ 
+					{
+						title: "从手机相册选择"
+					}];
+					
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								galleryImg();/*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}		
+			}) 
+			
+			// 拍照获取图片
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径
+						// 其他操作,比如预览展示
+						
+						console.log(imgSrc);
+						
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/camera/"
+				})
+			}
+						
+			// 从相册中选择图片 
+			function galleryImg(){
+				plus.gallery.pick( function(e){
+					for(var i in e.files){
+						var fileSrc = e.files[i];
+						// 其他操作,比如预览展示
+						console.log(fileSrc);
+						
+						document.body.querySelector('.fukuan-div').style.display = 'none';
+						var fukuanImg = document.body.querySelector('.fukuan-img');
+						fukuanImg.style.display = 'block';
+						fukuanImg.src = fileSrc;
+					}
+				}, 
+				function ( e ) {
+					console.log( "取消选择图片" );
+				},
+				{
+					filter: "image",
+					multiple: true,
+					maximum: 1,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择1张图片');
+					}
+				});
+			}
+		
+			//确认付款			
+			mui('.mui-scroll').on('tap','.confirm',function(){
+				mui.prompt('请输入二级密码', '6位数字密码', '确认交易?', ['取消', '确认'], (function (e) {
+					if (e.index === 0) {
+						mui.toast('取消');
+												
+					} else{						
+						var password = document.body.querySelector('.mui-popup-input input').value;
+						confirmPay(password);
+					}
+					
+				}), 'div');
+				
+				var input = document.body.querySelector('.mui-popup-input input');
+				input.type = 'password';
+			}) 
+			
+			//调用确认付款接口
+			var confirmPay = (function (password) {
+				mui.toast(password);
+				var loading = plus.nativeUI.showWaiting('提交中');
+				
+				//模拟请求
+				mui.later(function(){	
+					loading.close();
+					var current = plus.webview.currentWebview();
+					current.close();
+					  
+				},2000);
+			})
+			
+		</script>
+	</body>
+
+</html>
